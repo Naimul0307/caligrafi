@@ -1,7 +1,6 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif;
-    transition: background 0.5s ease-in-out;
 }
 
 #image-container {
@@ -13,12 +12,13 @@ body {
 }
 
 .image-option {
-    width: 150px;
-    height: 100px;
+    width: 400px;
+    height: 400px;
     margin: 10px;
     cursor: pointer;
     border: 3px solid transparent;
     transition: border-color 0.3s ease;
+    object-fit: cover; /* Ensures images maintain their aspect ratio and cover the container */
 }
 
 .image-option:hover {

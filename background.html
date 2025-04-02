@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background Selection</title>
     <link rel="stylesheet" href="image.css">
-    <style>
-
-    </style>
 </head>
 <body>
     <h1>Select a Background</h1>
@@ -16,30 +13,40 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const images = ["background.jpg", "background1.jpg", "background2.jpg"]; // List of images in the /images folder
-        const container = document.getElementById("image-container");
+        // Fetch image filenames dynamically from the server
+        fetch('/get-images')
+            .then(response => response.json())
+            .then(images => {
+                const container = document.getElementById("image-container");
 
-        images.forEach(image => {
-            const imgElement = document.createElement("img");
-            imgElement.src = `images/${image}`; // Correct path to images
-            imgElement.classList.add("image-option");
+                // Loop through the images and create an image element for each one
+                images.forEach(image => {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = `images/${image}`; // Path to the images folder
+                    imgElement.classList.add("image-option");
 
-            imgElement.addEventListener("click", () => {
-                // Remove the 'selected' class from any previously selected image
-                const previouslySelected = document.querySelector(".image-option.selected");
-                if (previouslySelected) {
-                    previouslySelected.classList.remove("selected");
-                }
+                    // Event listener for selecting an image
+                    imgElement.addEventListener("click", () => {
+                        // Remove the 'selected' class from any previously selected image
+                        const previouslySelected = document.querySelector(".image-option.selected");
+                        if (previouslySelected) {
+                            previouslySelected.classList.remove("selected");
+                        }
 
-                // Add the 'selected' class to the clicked image
-                imgElement.classList.add("selected");
+                        // Add the 'selected' class to the clicked image
+                        imgElement.classList.add("selected");
 
-                // Store the selected image in localStorage without applying it to the page background
-                localStorage.setItem('selectedBackground', `images/${image}`);
+                        // Store the selected image in localStorage
+                        localStorage.setItem('selectedBackground', `images/${image}`);
+                    });
+
+                    container.appendChild(imgElement);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching images:', error);
+                alert("Unable to load images.");
             });
-
-            container.appendChild(imgElement);
-        });
     });
 
     // Function to submit the selected background image and navigate to the next page
