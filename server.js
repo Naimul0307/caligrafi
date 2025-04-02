@@ -28,6 +28,11 @@ app.get('/get-images', (req, res) => {
   });
 });
 
+// Redirect the root (/) to settings.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'settings.html'));
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

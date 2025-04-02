@@ -3,14 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect Page</title>
+    <title>Settings - Arabic Transliteration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        input, button, select {
+            font-size: 18px;
+            padding: 15px;
+            margin: 20px;
+        }
+        @font-face {
+            font-family: 'Diwani';
+            src: url('fonts/DiwaniLetterRegular.ttf') format('truetype');
+        }
+    </style>
+        <!-- Linking Arabic calligraphy fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Sakkal+Majalla&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dubai&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Almarai&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mada&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button onclick="redirect()">Go to Next Page</button>
+    <div>
+        <h1>Set Font Style and Weight</h1>
+        
+        <label for="fontSelector">Select Font:</label>
+        <select id="fontSelector">
+            <option value="Diwani">Diwani</option>
+            <option value="Amiri">Thuluth</option>
+            <option value="Scheherazade">Naskh</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Sakkal Majalla">Sakkal Majalla</option>
+            <option value="Tajawal">Tajawal</option>
+            <option value="Dubai">Dubai</option>
+            <option value="Almarai">Almarai</option>
+            <option value="Lateef">Lateef</option>
+            <option value="Mada">Mada</option>
+            <option value="Noto Sans Arabic">Noto Sans Arabic</option>
+            <option value="Rakkas">Rakkas</option>
+            <option value="Lalezar">Lalezar</option>
+        </select>
+        
+        <label for="fontWeightSelector">Select Font Weight:</label>
+        <select id="fontWeightSelector">
+            <option value="normal">Normal</option>
+            <option value="bold">Bold</option>
+            <option value="lighter">Lighter</option>
+            <option value="bolder">Bolder</option>
+        </select>
+
+        <button onclick="saveSettings()">Save Settings</button>
+        <button onclick="redirect()">Go to index Page</button>
+    </div>
 
     <script>
+        // Function to save the selected font style and weight to localStorage
+        function saveSettings() {
+            const font = document.getElementById('fontSelector').value;
+            const fontWeight = document.getElementById('fontWeightSelector').value;
+
+            // Store the selected font and font weight in localStorage
+            localStorage.setItem('selectedFont', font);
+            localStorage.setItem('selectedFontWeight', fontWeight);
+
+            alert('Settings saved!');
+        }
+
+        // Preload the saved settings if any
+        window.onload = function() {
+            const savedFont = localStorage.getItem('selectedFont');
+            const savedFontWeight = localStorage.getItem('selectedFontWeight');
+            
+            if (savedFont) {
+                document.getElementById('fontSelector').value = savedFont;
+            }
+            if (savedFontWeight) {
+                document.getElementById('fontWeightSelector').value = savedFontWeight;
+            }
+        };
+
         function redirect() {
-            window.location.href = "background.html"; // Redirect to background page
+            window.location.href = "home.html"; // Redirect to background page
         }
     </script>
 </body>

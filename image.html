@@ -5,98 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offline Arabic Transliteration</title>
     <style>
-        @font-face {
+ @font-face {
             font-family: 'Diwani';
             src: url('fonts/DiwaniLetterRegular.ttf') format('truetype');
         }
-        body 
-        { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            padding: 20px; 
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
         }
-    
-        input, button, select {
-        font-size: 18px;
-        padding: 15px;
-        margin: 20px;
-    }
 
-    #output {
-        margin-top: 20px;
-        font-size: 32px;
-        font-weight: bold;
-    }
+        input, button {
+            font-size: 18px;
+            padding: 15px;
+            margin: 20px;
+        }
 
-    /* Center the generated image in the middle of the page */
-    .canvas-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-    }
+        #output {
+            margin-top: 20px;
+            font-size: 32px;
+            font-weight: bold;
+        }
 
-    canvas {
-        border: 1px solid #ccc;
-        display: none;
-    }
+        /* Center the generated image in the middle of the page */
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
 
-    #downloadBtn {
-        display: none;
-        margin-top: 20px;
-        padding: 10px 20px;
-        color: white;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-    }
+        canvas {
+            border: 1px solid #ccc;
+            display: none;
+        }
     </style>
-    <!-- Linking Arabic calligraphy fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sakkal+Majalla&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dubai&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mada&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div>
         <h1>Offline Arabic Transliteration</h1>
         <label for="nameInput">Enter your name in Arabic:</label>
         <input type="text" id="nameInput" placeholder="Enter your name">
-        
-        <select id="fontSelector">
-            <option>Select Font</option>
-            <option value="Diwani">Diwani</option>
-            <option value="Amiri">Thuluth</option>
-            <option value="Scheherazade">Naskh</option>
-            <option value="Cairo">Cairo</option>
-            <option value="Sakkal Majalla">Sakkal Majalla</option>
-            <option value="Tajawal">Tajawal</option>
-            <option value="Dubai">Dubai</option>
-            <option value="Almarai">Almarai</option>
-            <option value="Lateef">Lateef</option>
-            <option value="Mada">Mada</option>
-            <option value="Noto Sans Arabic">Noto Sans Arabic</option>
-            <option value="Rakkas">Rakkas</option>
-            <option value="Lalezar">Lalezar</option>
-        </select>
-
-        <!-- Add Font Weight Option -->
-        <select id="fontWeightSelector">
-            <option>Select Font Weight</option>
-            <option value="normal">Normal</option>
-            <option value="bold">Bold</option>
-            <option value="lighter">Lighter</option>
-            <option value="bolder">Bolder</option>
-        </select>
         
         <div class="canvas-container">
             <canvas id="calligraphyCanvas"></canvas>
@@ -118,75 +69,69 @@
         }
     
         const selectedBackground = localStorage.getItem('selectedBackground');
+
         function generateImage() {
-    const name = document.getElementById('nameInput').value;
-    const font = document.getElementById('fontSelector').value;
-    const fontWeight = document.getElementById('fontWeightSelector').value;
-    const canvas = document.getElementById('calligraphyCanvas');
-    const ctx = canvas.getContext('2d');
+            const name = document.getElementById('nameInput').value;
 
-    if (!font || font === "Select Font") {
-        alert("Please select a font.");
-        return;
-    }
+            // Retrieve saved font and font weight settings from localStorage
+            const font = localStorage.getItem('selectedFont') || 'Diwani';  // Default to 'Diwani' if none saved
+            const fontWeight = localStorage.getItem('selectedFontWeight') || 'normal';  // Default to 'normal'
 
-    // Set canvas size
-    canvas.width = 800;
-    canvas.height = 500;
+            const canvas = document.getElementById('calligraphyCanvas');
+            const ctx = canvas.getContext('2d');
 
-    // Check if a background image is selected
-    if (selectedBackground) {
-        // Load the selected background image
-        const bgImage = new Image();
-        bgImage.src = selectedBackground; // Use the background selected from the background.html page
+            if (!font || font === "Select Font") {
+                alert("Please select a font.");
+                return;
+            }
 
-        bgImage.onload = function () {
-            // Draw background image
-            ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            // Set canvas size
+            canvas.width = 800;
+            canvas.height = 500;
 
-            // Load font and draw text after the image is loaded
-            document.fonts.load(`200px ${font}`).then(() => {
-                document.fonts.ready.then(() => {
-                    ctx.font = `${fontWeight} 200px ${font}`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillStyle = "black";
-                    ctx.fillText(name, canvas.width / 2, canvas.height / 2);
+            // Check if a background image is selected
+            if (selectedBackground) {
+                const bgImage = new Image();
+                bgImage.src = selectedBackground;
 
-                    // Show canvas and print button
-                    canvas.style.display = 'block';
-                    document.getElementById('printBtn').style.display = 'block';
+                bgImage.onload = function () {
+                    ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-                    // Hide the "Generate Image" button
-                    document.getElementById('generateBtn').style.display = 'none';
-                });
-            }).catch(() => {
-                alert("Failed to load font. Try again.");
-            });
-        };
+                    document.fonts.load(`50px ${font}`).then(() => {
+                        document.fonts.ready.then(() => {
+                            ctx.font = `${fontWeight} 50px ${font}`;
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillStyle = "black";
+                            ctx.fillText(name, canvas.width / 2, canvas.height / 2);
 
-        bgImage.onerror = function () {
-            alert("Failed to load background image.");
-        };
-    } else {
-        alert("No background image selected.");
-    }
-}
+                            // Show canvas and print button
+                            canvas.style.display = 'block';
+                            document.getElementById('printBtn').style.display = 'block';
+                            document.getElementById('generateBtn').style.display = 'none';
+                        });
+                    }).catch(() => {
+                        alert("Failed to load font. Try again.");
+                    });
+                };
 
-function printImage() {
-    const canvas = document.getElementById('calligraphyCanvas');
-    const printWindow = window.open('', '', 'height=600,width=800');
-    
-    // Get the canvas data URL and open a new print window
-    printWindow.document.write('<html><head><title>Print</title></head><body>');
-    printWindow.document.write('<img src="' + canvas.toDataURL('image/png') + '" width="800" height="500"/>');
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    
-    // Trigger the print dialog
-    printWindow.print();
-}
+                bgImage.onerror = function () {
+                    alert("Failed to load background image.");
+                };
+            } else {
+                alert("No background image selected.");
+            }
+        }
 
+        function printImage() {
+            const canvas = document.getElementById('calligraphyCanvas');
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Print</title></head><body>');
+            printWindow.document.write('<img src="' + canvas.toDataURL('image/png') + '" width="800" height="500"/>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
     </script>
 </body>
 </html>
