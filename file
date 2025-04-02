@@ -3,5 +3,12 @@
     │   ├── DiwaniLetterRegular.ttf
     │   ├── ThuluthRegular.ttf
     │   ├── TraditionalNaskhRegular.ttf
+    ├── images/
+    │   ├── background.jpg
     ├── styles.css
+    ├── image.css
     ├── index.html
+    ├── backgound.html
+    ├── image.html
+
+    

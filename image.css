@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    transition: background 0.5s ease-in-out;
+}
+
+#image-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.image-option {
+    width: 150px;
+    height: 100px;
+    margin: 10px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.image-option:hover {
+    border: 2px solid #00000085;
+}
+
+.selected {
+    border-color: #4CAF50; /* Change to your desired color */
+}
