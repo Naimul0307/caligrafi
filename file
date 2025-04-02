@@ -1,0 +1,7 @@
+/Offline-Transliteration-Website
+    ├── fonts/
+    │   ├── DiwaniLetterRegular.ttf
+    │   ├── ThuluthRegular.ttf
+    │   ├── TraditionalNaskhRegular.ttf
+    ├── styles.css
+    ├── index.html

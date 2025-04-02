@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Arabic Transliteration</title>
+    <style>
+        @font-face {
+            font-family: 'Diwani';
+            src: url('fonts/DiwaniLetterRegular.ttf') format('truetype');
+        }
+        body 
+        { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+        }
+    
+        input, button, select {
+        font-size: 18px;
+        padding: 15px;
+        margin: 20px;
+    }
+
+    #output {
+        margin-top: 20px;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    /* Center the generated image in the middle of the page */
+    .canvas-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    canvas {
+        border: 1px solid #ccc;
+        display: none;
+    }
+
+    #downloadBtn {
+        display: none;
+        margin-top: 20px;
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    </style>
+    <!-- Linking Arabic calligraphy fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sakkal+Majalla&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dubai&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <h1>Offline Arabic Transliteration</h1>
+        <label for="nameInput">Enter your name in Arabic:</label>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        
+        <select id="fontSelector">
+            <option>Select Font</option>
+            <option value="Diwani">Diwani</option>
+            <option value="Amiri">Thuluth</option>
+            <option value="Scheherazade">Naskh</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Sakkal Majalla">Sakkal Majalla</option>
+            <option value="Tajawal">Tajawal</option>
+            <option value="Dubai">Dubai</option>
+            <option value="Almarai">Almarai</option>
+            <option value="Lateef">Lateef</option>
+            <option value="Mada">Mada</option>
+            <option value="Noto Sans Arabic">Noto Sans Arabic</option>
+            <option value="Rakkas">Rakkas</option>
+            <option value="Lalezar">Lalezar</option>
+        </select>
+        
+        <div class="canvas-container">
+        <!-- Canvas to draw calligraphy -->
+        <canvas id="calligraphyCanvas" width="500" height="500"></canvas>
+        
+        <button onclick="generateImage()">Generate Calligraphy Image</button>
+
+        <!-- Download Button -->
+        <a id="downloadBtn" href="#" download="calligraphy.png">
+            <button>Download Image</button>
+        </a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="//api.yamli.com/js/yamli_api.js"></script>
+    <script type="text/javascript">
+        if (typeof(Yamli) == "object") {
+            Yamli.init({
+                uiLanguage: "en",
+                startMode: "onOrUserDefault",
+            });
+            Yamli.yamlify('nameInput', {
+                settingsPlacement: 'topLeft'
+            });
+        }
+
+    function generateImage() {
+    const name = document.getElementById('nameInput').value;
+    const font = document.getElementById('fontSelector').value;
+    const canvas = document.getElementById('calligraphyCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Ensure a valid font is selected
+    if (!font || font === "Select Font") {
+        alert("Please select a font.");
+        return;
+    }
+
+    // Load the font before drawing
+    document.fonts.load(`100px ${font}`).then(() => {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Set font based on selected style
+        ctx.font = `100px ${font}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Draw text
+        ctx.fillText(name, canvas.width / 2, canvas.height / 2);
+
+        // Show the canvas and download button
+        document.getElementById('calligraphyCanvas').style.display = 'block';
+        document.getElementById('downloadBtn').style.display = 'block';
+
+        // Prepare the download link with the canvas content
+        const downloadLink = document.getElementById('downloadBtn');
+        downloadLink.href = canvas.toDataURL('image/png');
+    }).catch(() => {
+        alert("Failed to load font. Try again.");
+    });
+}
+
+    </script>
+</body>
+</html>
