@@ -88,17 +88,22 @@
             <option value="Rakkas">Rakkas</option>
             <option value="Lalezar">Lalezar</option>
         </select>
+
+        <!-- Add Font Weight Option -->
+        <select id="fontWeightSelector">
+            <option>Select Font Weight</option>
+            <option value="normal">Normal</option>
+            <option value="bold">Bold</option>
+            <option value="lighter">Lighter</option>
+            <option value="bolder">Bolder</option>
+        </select>
         
         <div class="canvas-container">
-        <!-- Canvas to draw calligraphy -->
-        <canvas id="calligraphyCanvas" width="500" height="500"></canvas>
-        
-        <button onclick="generateImage()">Generate Calligraphy Image</button>
-
-        <!-- Download Button -->
-        <a id="downloadBtn" href="#" download="calligraphy.png">
-            <button>Download Image</button>
-        </a>
+            <canvas id="calligraphyCanvas"></canvas>
+            <button onclick="generateImage()">Generate Calligraphy Image</button>
+            <a id="downloadBtn" href="#" download="calligraphy.png">
+                <button>Download Image</button>
+            </a>
         </div>
     </div>
 
@@ -114,43 +119,57 @@
             });
         }
 
-    function generateImage() {
-    const name = document.getElementById('nameInput').value;
-    const font = document.getElementById('fontSelector').value;
-    const canvas = document.getElementById('calligraphyCanvas');
-    const ctx = canvas.getContext('2d');
+        function generateImage() {
+            const name = document.getElementById('nameInput').value;
+            const font = document.getElementById('fontSelector').value;
+            const fontWeight = document.getElementById('fontWeightSelector').value;
+            const canvas = document.getElementById('calligraphyCanvas');
+            const ctx = canvas.getContext('2d');
 
-    // Ensure a valid font is selected
-    if (!font || font === "Select Font") {
-        alert("Please select a font.");
-        return;
-    }
+            if (!font || font === "Select Font") {
+                alert("Please select a font.");
+                return;
+            }
 
-    // Load the font before drawing
-    document.fonts.load(`100px ${font}`).then(() => {
-        // Clear the canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Set canvas size
+            canvas.width = 800;
+            canvas.height = 500;
 
-        // Set font based on selected style
-        ctx.font = `100px ${font}`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+            // Load the background image
+            const bgImage = new Image();
+            bgImage.src = "image/background.jpg"; // Ensure this path is correct
 
-        // Draw text
-        ctx.fillText(name, canvas.width / 2, canvas.height / 2);
+            bgImage.onload = function () {
+                // Draw background image
+                ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-        // Show the canvas and download button
-        document.getElementById('calligraphyCanvas').style.display = 'block';
-        document.getElementById('downloadBtn').style.display = 'block';
+                // Load font and draw text after the image is loaded
+                document.fonts.load(`200px ${font}`).then(() => { // Adjust font size
+                    document.fonts.ready.then(() => {
+                        ctx.font = `200px ${font}`;
+                        ctx.font = `${fontWeight} 200px ${font}`; // Apply font weight
 
-        // Prepare the download link with the canvas content
-        const downloadLink = document.getElementById('downloadBtn');
-        downloadLink.href = canvas.toDataURL('image/png');
-    }).catch(() => {
-        alert("Failed to load font. Try again.");
-    });
-}
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillStyle = "black"; // Change text color if needed
+                        ctx.fillText(name, canvas.width / 2, canvas.height / 2);
 
+                        // Show canvas and download button
+                        canvas.style.display = 'block';
+                        document.getElementById('downloadBtn').style.display = 'block';
+
+                        // Prepare download link
+                        document.getElementById('downloadBtn').href = canvas.toDataURL('image/png');
+                    });
+                }).catch(() => {
+                    alert("Failed to load font. Try again.");
+                });
+            };
+
+            bgImage.onerror = function () {
+                alert("Failed to load background image.");
+            };
+        }
     </script>
 </body>
 </html>
