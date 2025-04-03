@@ -1,14 +1,31 @@
-/Offline-Transliteration-Website
-    ├── fonts/
-    │   ├── DiwaniLetterRegular.ttf
-    │   ├── ThuluthRegular.ttf
-    │   ├── TraditionalNaskhRegular.ttf
-    ├── images/
-    │   ├── background.jpg
-    ├── styles.css
-    ├── image.css
-    ├── index.html
-    ├── backgound.html
-    ├── image.html
+CALIGRAFI
+    ├──Public
+    │   ├── css/
+    │   │   └── image.css
+    │   ├── fonts/
+    │   │   ├── Amiri-Italic.ttf
+    │   │   ├── CairoPlay-Regular.ttf    
+    │   │   ├── Diwani-Letter-Regular.ttf 
+    │   │   ├── Lateef-Regular.ttf 
+    │   │   ├── Mada-Regular.ttf 
+    │   │   ├── ScheherazadeNew-Regular.ttf 
+    │   │   └── Tajawal-Regular.ttf                   
+    │   ├── images/
+    │   │   ├── background.jpg
+    │   │   ├── background1.jpg    
+    │   │   ├── background2.jpg
+    │   │   ├── background3.jpg
+    │   │   ├── background4.jpg 
+    │   │   └── background5.jpg
+    │   ├── js/
+    │   ├── photo/
+    │   ├── templates/
+    │   │   ├── background.html
+    │   │   ├── home.html   
+    │   │   ├── image.html
+    │   │   └── index.html
+    ├── packae-lock.json
+    ├── package.json
+    └── server.js
 
     

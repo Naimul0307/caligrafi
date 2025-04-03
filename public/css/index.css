@@ -1,0 +1,95 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    text-align: center;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Centered Card Layout */
+.settings-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    color: #444;
+}
+
+input, button, select {
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .settings-container {
+        width: 95%;
+    }
+}
+@font-face {
+    font-family: 'Diwani';
+    src: url('/fonts/Diwani-Letter-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Amiri-Italic';
+    src: url('/fonts/Amiri-Italic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'CairoPlay-Regular';
+    src: url('/fonts/CairoPlay-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Lateef-Regular';
+    src: url('/fonts/Lateef-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Mada-Regular';
+    src: url('/fonts/Mada-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'ScheherazadeNew-Regular';
+    src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Tajawal-Regular';
+    src: url('/fonts/Tajawal-Regular.ttf') format('truetype');
+}

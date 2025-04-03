@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Arabic Transliteration</title>
+    <link rel="stylesheet" href="../css/images.css">
+</head>
+<body>
+    <div>
+        <h1>Offline Arabic Transliteration</h1>
+        <label for="nameInput">Enter your name</label>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        
+        <div class="canvas-container">
+            <canvas id="calligraphyCanvas"></canvas>
+            <button id="generateBtn" onclick="generateImage()">SUBMIT</button>
+            <button id="printBtn" style="display:none;" onclick="printImage()">Print Image</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="//api.yamli.com/js/yamli_api.js"></script>
+    <script src="../js/image.js"></script>
+</body>
+</html>
