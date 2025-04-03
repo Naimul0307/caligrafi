@@ -69,13 +69,15 @@
         }
     
         const selectedBackground = localStorage.getItem('selectedBackground');
-
-        function generateImage() {
+            function generateImage() {
             const name = document.getElementById('nameInput').value;
 
-            // Retrieve saved font and font weight settings from localStorage
-            const font = localStorage.getItem('selectedFont') || 'Diwani';  // Default to 'Diwani' if none saved
-            const fontWeight = localStorage.getItem('selectedFontWeight') || 'normal';  // Default to 'normal'
+            // Retrieve saved settings
+            const font = localStorage.getItem('selectedFont') || 'Diwani';
+            const fontWeight = localStorage.getItem('selectedFontWeight') || 'normal';
+            const fontSize = localStorage.getItem('fontSize') || '50'; // Default to 50px
+            const canvasWidth = localStorage.getItem('canvasWidth') || '800'; 
+            const canvasHeight = localStorage.getItem('canvasHeight') || '500'; 
 
             const canvas = document.getElementById('calligraphyCanvas');
             const ctx = canvas.getContext('2d');
@@ -85,9 +87,9 @@
                 return;
             }
 
-            // Set canvas size
-            canvas.width = 800;
-            canvas.height = 500;
+            // Apply dynamic canvas size
+            canvas.width = parseInt(canvasWidth);
+            canvas.height = parseInt(canvasHeight);
 
             // Check if a background image is selected
             if (selectedBackground) {
@@ -97,9 +99,9 @@
                 bgImage.onload = function () {
                     ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-                    document.fonts.load(`50px ${font}`).then(() => {
+                    document.fonts.load(`${fontSize}px ${font}`).then(() => {
                         document.fonts.ready.then(() => {
-                            ctx.font = `${fontWeight} 50px ${font}`;
+                            ctx.font = `${fontWeight} ${fontSize}px ${font}`;
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
                             ctx.fillStyle = "black";
@@ -109,6 +111,8 @@
                             canvas.style.display = 'block';
                             document.getElementById('printBtn').style.display = 'block';
                             document.getElementById('generateBtn').style.display = 'none';
+
+                            saveImage();
                         });
                     }).catch(() => {
                         alert("Failed to load font. Try again.");
@@ -123,6 +127,30 @@
             }
         }
 
+        function saveImage() {
+        const canvas = document.getElementById('calligraphyCanvas');
+        const imageData = canvas.toDataURL('image/png'); // Convert to base64
+
+        fetch('/save-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image: imageData }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Image saved successfully!');
+            } else {
+                alert('Failed to save image.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
         function printImage() {
             const canvas = document.getElementById('calligraphyCanvas');
             const printWindow = window.open('', '', 'height=600,width=800');

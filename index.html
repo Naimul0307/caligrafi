@@ -14,31 +14,20 @@
         input, button, select {
             font-size: 18px;
             padding: 15px;
-            margin: 20px;
+            margin: 10px;
         }
+
         @font-face {
             font-family: 'Diwani';
             src: url('fonts/DiwaniLetterRegular.ttf') format('truetype');
         }
     </style>
-        <!-- Linking Arabic calligraphy fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Sakkal+Majalla&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Dubai&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Almarai&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Mada&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
 </head>
 <body>
     <div>
         <h1>Set Font Style and Weight</h1>
-        
+
+        <!-- Font Selector -->
         <label for="fontSelector">Select Font:</label>
         <select id="fontSelector">
             <option value="Diwani">Diwani</option>
@@ -55,7 +44,8 @@
             <option value="Rakkas">Rakkas</option>
             <option value="Lalezar">Lalezar</option>
         </select>
-        
+
+        <!-- Font Weight Selector -->
         <label for="fontWeightSelector">Select Font Weight:</label>
         <select id="fontWeightSelector">
             <option value="normal">Normal</option>
@@ -64,38 +54,62 @@
             <option value="bolder">Bolder</option>
         </select>
 
+        <h1>Set Canvas Size & Font Size</h1>
+
+        <!-- Canvas Width Input -->
+        <label for="canvasWidth">Canvas Width (px):</label>
+        <input type="number" id="canvasWidth" value="800">
+
+        <!-- Canvas Height Input -->
+        <label for="canvasHeight">Canvas Height (px):</label>
+        <input type="number" id="canvasHeight" value="500">
+
+        <!-- Font Size Input -->
+        <label for="fontSize">Font Size (px):</label>
+        <input type="number" id="fontSize" value="50">
+
+        <br>
+
+        <!-- Save Button -->
         <button onclick="saveSettings()">Save Settings</button>
-        <button onclick="redirect()">Go to index Page</button>
+        <button onclick="redirect()">Go to Home</button>
     </div>
 
     <script>
-        // Function to save the selected font style and weight to localStorage
         function saveSettings() {
             const font = document.getElementById('fontSelector').value;
             const fontWeight = document.getElementById('fontWeightSelector').value;
+            const canvasWidth = document.getElementById('canvasWidth').value;
+            const canvasHeight = document.getElementById('canvasHeight').value;
+            const fontSize = document.getElementById('fontSize').value;
 
-            // Store the selected font and font weight in localStorage
+            // Save settings to localStorage
             localStorage.setItem('selectedFont', font);
             localStorage.setItem('selectedFontWeight', fontWeight);
+            localStorage.setItem('canvasWidth', canvasWidth);
+            localStorage.setItem('canvasHeight', canvasHeight);
+            localStorage.setItem('fontSize', fontSize);
 
             alert('Settings saved!');
         }
 
-        // Preload the saved settings if any
+        // Load saved settings on page load
         window.onload = function() {
             const savedFont = localStorage.getItem('selectedFont');
             const savedFontWeight = localStorage.getItem('selectedFontWeight');
-            
-            if (savedFont) {
-                document.getElementById('fontSelector').value = savedFont;
-            }
-            if (savedFontWeight) {
-                document.getElementById('fontWeightSelector').value = savedFontWeight;
-            }
+            const savedCanvasWidth = localStorage.getItem('canvasWidth');
+            const savedCanvasHeight = localStorage.getItem('canvasHeight');
+            const savedFontSize = localStorage.getItem('fontSize');
+
+            if (savedFont) document.getElementById('fontSelector').value = savedFont;
+            if (savedFontWeight) document.getElementById('fontWeightSelector').value = savedFontWeight;
+            if (savedCanvasWidth) document.getElementById('canvasWidth').value = savedCanvasWidth;
+            if (savedCanvasHeight) document.getElementById('canvasHeight').value = savedCanvasHeight;
+            if (savedFontSize) document.getElementById('fontSize').value = savedFontSize;
         };
 
         function redirect() {
-            window.location.href = "home.html"; // Redirect to background page
+            window.location.href = "home.html"; // Redirect to home page
         }
     </script>
 </body>
