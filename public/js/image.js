@@ -128,11 +128,31 @@ fetch('/save-image', {
 }
 
 function printImage() {
-const canvas = document.getElementById('calligraphyCanvas');
-const printWindow = window.open('', '', 'height=600,width=800');
-printWindow.document.write('<html><head><title>Print</title></head><body>');
-printWindow.document.write('<img src="' + canvas.toDataURL('image/png') + '" width="800" height="500"/>');
-printWindow.document.write('</body></html>');
-printWindow.document.close();
-printWindow.print();
+    const canvas = document.getElementById('calligraphyCanvas');
+    const imageData = canvas.toDataURL('image/png'); // Convert canvas to image
+    
+    const printWindow = window.open('', '_blank'); // Open new tab/window
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Print Calligraphy</title>
+            <style>
+                body { text-align: center; margin: 0; padding: 20px; }
+                img { max-width: 100%; height: auto; }
+            </style>
+        </head>
+        <body>
+            <img id="printImage" src="${imageData}" />
+            <script>
+                window.onload = function() {
+                    setTimeout(() => {
+                        window.print();
+                        window.close();
+                    }, 500); // Delay ensures image is fully loaded
+                };
+            </script>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
 }
