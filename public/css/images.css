@@ -1,7 +1,16 @@
 @font-face {
-    font-family: 'Diwani';
+    font-family: 'DiwaniLetterRegular';
     src: url('/fonts/Diwani-Letter-Regular.ttf') format('truetype');
 }
+@font-face {
+    font-family: 'DiwaniBentRegular';
+    src: url('/fonts/Diwani-Bent-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'DiwaniSimpleStripedRegular';
+    src: url('/fonts/Diwani-Simple-Striped-Regular') format('truetype');
+}
+
 @font-face {
     font-family: 'Amiri-Italic';
     src: url('/fonts/Amiri-Italic.ttf') format('truetype');
@@ -28,7 +37,6 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
     background: linear-gradient(to right, #f8f9fa, #e9ecef);
     text-align: center;
     color: #333;

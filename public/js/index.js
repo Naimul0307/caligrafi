@@ -1,5 +1,5 @@
 function saveSettings() {
-    const font = document.getElementById('fontSelector').value || 'Diwani';
+    const font = document.getElementById('fontSelector').value || 'DiwaniLetterRegular';
     const fontWeight = document.getElementById('fontWeightSelector').value;
     const canvasWidth = document.getElementById('canvasWidth').value;
     const canvasHeight = document.getElementById('canvasHeight').value;
@@ -25,7 +25,7 @@ function saveSettings() {
 
 // Load saved settings on page load
 window.onload = function() {
-    const savedFont = localStorage.getItem('selectedFont') || 'Diwani';
+    const savedFont = localStorage.getItem('selectedFont') || 'DiwaniLetterRegular';
     const savedFontWeight = localStorage.getItem('selectedFontWeight');
     const savedCanvasWidth = localStorage.getItem('canvasWidth');
     const savedCanvasHeight = localStorage.getItem('canvasHeight');

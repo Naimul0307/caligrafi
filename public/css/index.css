@@ -1,3 +1,41 @@
+@font-face {
+    font-family: 'DiwaniLetterRegular';
+    src: url('/fonts/Diwani-Letter-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'DiwaniBentRegular';
+    src: url('/fonts/Diwani-Bent-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'DiwaniSimpleStripedRegular';
+    src: url('/fonts/Diwani-Simple-Striped-Regular') format('truetype');
+}
+
+@font-face {
+    font-family: 'Amiri-Italic';
+    src: url('/fonts/Amiri-Italic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'CairoPlay-Regular';
+    src: url('/fonts/CairoPlay-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Lateef-Regular';
+    src: url('/fonts/Lateef-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Mada-Regular';
+    src: url('/fonts/Mada-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'ScheherazadeNew-Regular';
+    src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Tajawal-Regular';
+    src: url('/fonts/Tajawal-Regular.ttf') format('truetype');
+}
+
 /* General Page Styling */
 body {
     font-family: Arial, sans-serif;
@@ -64,32 +102,4 @@ button:hover {
     .settings-container {
         width: 95%;
     }
-}
-@font-face {
-    font-family: 'Diwani';
-    src: url('/fonts/Diwani-Letter-Regular.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Amiri-Italic';
-    src: url('/fonts/Amiri-Italic.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'CairoPlay-Regular';
-    src: url('/fonts/CairoPlay-Regular.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Lateef-Regular';
-    src: url('/fonts/Lateef-Regular.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Mada-Regular';
-    src: url('/fonts/Mada-Regular.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'ScheherazadeNew-Regular';
-    src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Tajawal-Regular';
-    src: url('/fonts/Tajawal-Regular.ttf') format('truetype');
 }

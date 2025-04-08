@@ -9,6 +9,7 @@ if (typeof(Yamli) == "object") {
 }
 
 const selectedBackground = localStorage.getItem('selectedBackground');
+
 function generateImage() {
 const name = document.getElementById('nameInput').value.trim();
 if (!name) {
@@ -17,9 +18,9 @@ if (!name) {
 }
 
 // Retrieve saved settings
-const font = localStorage.getItem('selectedFont') || 'Diwani';
+const font = localStorage.getItem('selectedFont') || 'DiwaniLetterRegular';
 const fontWeight = localStorage.getItem('selectedFontWeight') || 'normal';
-let fontSize = parseInt(localStorage.getItem('fontSize')) || 50; // Default to 50px
+let fontSize = parseInt(localStorage.getItem('fontSize')) || 50;
 const canvasWidth = parseInt(localStorage.getItem('canvasWidth')) || 800; 
 const canvasHeight = parseInt(localStorage.getItem('canvasHeight')) || 500; 
 
@@ -29,22 +30,24 @@ canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
 // Background image handling
-if (selectedBackground) {
-    const bgImage = new Image();
-    bgImage.src = selectedBackground;
-
-    bgImage.onload = function () {
-        ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+document.fonts.ready.then(() => {
+    if (selectedBackground) {
+        const bgImage = new Image();
+        bgImage.src = selectedBackground;
+    
+        bgImage.onload = function () {
+            ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            drawText(ctx, name, font, fontWeight, fontSize, canvas);
+        };
+    
+        bgImage.onerror = function () {
+            alert("Failed to load background image.");
+        };
+    } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
         drawText(ctx, name, font, fontWeight, fontSize, canvas);
-    };
-
-    bgImage.onerror = function () {
-        alert("Failed to load background image.");
-    };
-} else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
-    drawText(ctx, name, font, fontWeight, fontSize, canvas);
-}
+    }
+});
 }
 
 function drawText(ctx, text, font, fontWeight, fontSize, canvas) {
@@ -222,6 +225,10 @@ function printImage() {
     printWindow.document.close();
 }
 
-
-
-
+// 👇 Add this at the end of the file
+window.addEventListener('DOMContentLoaded', () => {
+    const savedFont = localStorage.getItem('selectedFont');
+    if (savedFont) {
+        document.body.style.fontFamily = `'${savedFont}', sans-serif`;
+    }
+});
