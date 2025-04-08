@@ -149,7 +149,6 @@ function saveImage() {
         console.error('Error:', error);
     });
 }
-
 function printImage() {
     const imageName = localStorage.getItem('latestImageFilename');
     if (!imageName) {
@@ -159,14 +158,13 @@ function printImage() {
 
     const imagePath = `/photo/${imageName}`;
 
-    const printWindow = window.open('', '_blank');
-
+    const printWindow = window.open('', '', 'width=600,height=600');
     const style = `
         @media print {
-            @page {
-                margin: 0;
+            @page { 
+                margin: 0; 
             }
-            body {
+            body { 
                 margin: 0;
                 padding: 0;
                 display: flex;
@@ -175,7 +173,7 @@ function printImage() {
                 width: 100vw;
                 height: 100vh;
             }
-            img {
+            img { 
                 max-width: 100%;
                 max-height: 100%;
                 object-fit: contain;
@@ -202,10 +200,19 @@ function printImage() {
             <img src="${imagePath}" />
             <script>
                 window.onload = function () {
-                    setTimeout(() => {
-                        window.print();
-                        window.close();
-                    }, 500);
+                    window.print();
+                };
+
+                window.onafterprint = function () {
+                    // Close the print window
+                    window.close();
+                    // Redirect to home.html (absolute path)
+                    if (window.opener) {
+                        window.opener.location.href = '/home.html'; // Use absolute path
+                    } else {
+                        // Fallback if opener is not available (for instance, in some popup blockers)
+                        window.location.href = '/home.html';
+                    }
                 };
             </script>
         </body>
@@ -214,4 +221,7 @@ function printImage() {
 
     printWindow.document.close();
 }
+
+
+
 
