@@ -103,28 +103,48 @@ for (let i = 1; i < words.length; i++) {
 lines.push(currentLine);
 return lines;
 }
-function saveImage() {
-const canvas = document.getElementById('calligraphyCanvas');
-const imageData = canvas.toDataURL('image/png'); // Convert to base64
 
-fetch('/save-image', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ image: imageData }),
-})
-.then(response => response.json())
-.then(data => {
-    if (data.success) {
-        alert('Image saved successfully!');
-    } else {
-        alert('Failed to save image.');
+function saveImage() {
+    const canvas = document.getElementById('calligraphyCanvas');
+
+    // Get saved export settings
+    let width = parseInt(localStorage.getItem('imageWidth')) || canvas.width;
+    let height = parseInt(localStorage.getItem('imageHeight')) || canvas.height;
+    const quality = parseFloat(localStorage.getItem('imageQuality')) || 1;
+
+    // ✅ Get orientation and adjust width/height if needed
+    const orientation = localStorage.getItem('imageOrientation') || 'landscape';
+    if (orientation === 'portrait' && width > height) {
+        [width, height] = [height, width]; // Swap for portrait
     }
-})
-.catch(error => {
-    console.error('Error:', error);
-});
+
+    // Create offscreen canvas for export
+    const exportCanvas = document.createElement('canvas');
+    const exportCtx = exportCanvas.getContext('2d');
+    exportCanvas.width = width;
+    exportCanvas.height = height;
+
+    // Scale original canvas content
+    exportCtx.drawImage(canvas, 0, 0, width, height);
+
+    const imageData = exportCanvas.toDataURL('image/jpg', quality); // Use PNG if needed
+
+    fetch('/save-image', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image: imageData }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert('Failed to save image.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 function printImage() {
@@ -137,8 +157,9 @@ function printImage() {
         <head>
             <title>Print Calligraphy</title>
             <style>
-                body { text-align: center; margin: 0; padding: 20px; }
-                img { max-width: 100%; height: auto; }
+                @page { margin: 0; } /* Remove default print margins */
+                body { margin: 0; padding: 0; }
+                img { width: 100vw; height: 100vh; object-fit: cover; } /* Cover full page */
             </style>
         </head>
         <body>

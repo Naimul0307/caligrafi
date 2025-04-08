@@ -40,9 +40,32 @@
         <label for="fontSize">Font Size (px):</label>
         <input type="number" id="fontSize" value="50">
 
+        <h1>Set Export Image Size & Quality</h1>
+
+        <label for="imageWidth">Image Export Width (px):</label>
+        <input type="number" id="imageWidth" value="800">
+
+        <label for="imageHeight">Image Export Height (px):</label>
+        <input type="number" id="imageHeight" value="500">
+
+        <label for="imageQuality">Image Quality (0.1 - 1):</label>
+        <input type="number" id="imageQuality" step="0.1" min="0.1" max="1" value="1">
+
+        <h1>Image Orientation</h1>
+        <label for="orientationSelector">Select Orientation:</label>
+        <select id="orientationSelector">
+            <option value="landscape">Landscape</option>
+            <option value="portrait">Portrait</option>
+        </select>
+        
         <button onclick="saveSettings()">Save Settings</button>
         <button onclick="redirect()">Go to Home</button>
     </div>
     <script src="../js/index.js"></script>
+    <script>
+        function redirect() {
+        window.location.href = "home.html"; // Redirect to home page
+    }
+    </script>
 </body>
 </html>
