@@ -127,7 +127,7 @@ function saveImage() {
     // Scale original canvas content
     exportCtx.drawImage(canvas, 0, 0, width, height);
 
-    const imageData = exportCanvas.toDataURL('image/jpg', quality); // Use PNG if needed
+    const imageData = exportCanvas.toDataURL('image/jpeg', quality);
 
     fetch('/save-image', {
         method: 'POST',
@@ -140,6 +140,9 @@ function saveImage() {
     .then(data => {
         if (!data.success) {
             alert('Failed to save image.');
+        } else {
+            // Store the latest filename in localStorage
+            localStorage.setItem('latestImageFilename', data.filename);
         }
     })
     .catch(error => {
@@ -148,32 +151,67 @@ function saveImage() {
 }
 
 function printImage() {
-    const canvas = document.getElementById('calligraphyCanvas');
-    const imageData = canvas.toDataURL('image/png'); // Convert canvas to image
-    
-    const printWindow = window.open('', '_blank'); // Open new tab/window
+    const imageName = localStorage.getItem('latestImageFilename');
+    if (!imageName) {
+        alert("No image found to print.");
+        return;
+    }
+
+    const imagePath = `/photo/${imageName}`;
+
+    const printWindow = window.open('', '_blank');
+
+    const style = `
+        @media print {
+            @page {
+                margin: 0;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+            }
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                page-break-inside: avoid;
+            }
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: white;
+        }
+    `;
+
     printWindow.document.write(`
         <html>
         <head>
             <title>Print Calligraphy</title>
-            <style>
-                @page { margin: 0; } /* Remove default print margins */
-                body { margin: 0; padding: 0; }
-                img { width: 100vw; height: 100vh; object-fit: cover; } /* Cover full page */
-            </style>
+            <style>${style}</style>
         </head>
         <body>
-            <img id="printImage" src="${imageData}" />
+            <img src="${imagePath}" />
             <script>
-                window.onload = function() {
+                window.onload = function () {
                     setTimeout(() => {
                         window.print();
                         window.close();
-                    }, 500); // Delay ensures image is fully loaded
+                    }, 500);
                 };
             </script>
         </body>
         </html>
     `);
+
     printWindow.document.close();
 }
+

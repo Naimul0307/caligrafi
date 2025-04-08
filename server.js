@@ -29,8 +29,8 @@ if (!fs.existsSync(photoDir)) {
 
 // Endpoint to save the image
 app.post('/save-image', (req, res) => {
-  const imageData = req.body.image.replace(/^data:image\/png;base64,/, ""); // Remove header
-  const fileName = `${Date.now()}.png`; // Unique name
+  const imageData = req.body.image.replace(/^data:image\/\w+;base64,/, "");
+  const fileName = `${Date.now()}.jpg`; // Unique name
   const filePath = path.join(photoDir, fileName);
 
   fs.writeFile(filePath, imageData, 'base64', (err) => {
@@ -38,9 +38,12 @@ app.post('/save-image', (req, res) => {
           console.error('Error saving image:', err);
           return res.status(500).json({ success: false, message: 'Error saving image' });
       }
+
+      console.log('Image saved:', fileName);
       res.json({ success: true, filename: fileName });
   });
 });
+
 
 // Endpoint to fetch image filenames from the 'images' folder
 app.get('/get-images', (req, res) => {
