@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 // Middleware to parse JSON body
-app.use(express.json({ limit: '10mb' })); 
+app.use(express.json({ limit: '10mb' }));
 
 // Serve static files (HTML, CSS, JS) from the current directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -44,7 +44,6 @@ app.post('/save-image', (req, res) => {
   });
 });
 
-
 // Endpoint to fetch image filenames from the 'images' folder
 app.get('/get-images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
@@ -71,8 +70,9 @@ app.get('/', (req, res) => {
     res.sendFile(filePath);
 });
 
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// Export the Express app and the HTTP server for use in main.js
+const server = app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
+
+module.exports = { server, app };

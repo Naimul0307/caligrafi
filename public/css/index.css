@@ -7,10 +7,9 @@
     src: url('/fonts/Diwani-Bent-Regular.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'DiwaniSimpleStripedRegular';
-    src: url('/fonts/Diwani-Simple-Striped-Regular') format('truetype');
+    font-family: 'FarsiSimpleBoldRegular';
+    src: url('/fonts/Farsi-Simple-Bold-Regular') format('truetype');
 }
-
 @font-face {
     font-family: 'Amiri-Italic';
     src: url('/fonts/Amiri-Italic.ttf') format('truetype');
