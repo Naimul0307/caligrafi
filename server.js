@@ -22,7 +22,7 @@ app.use('/fonts', express.static(path.join(__dirname, 'public/fonts')));
 app.use('/photo', express.static(path.join(__dirname, 'public/photo')));
 
 // Ensure 'photo' directory exists
-const photoDir = path.join(__dirname, 'Public/photo');
+const photoDir = path.join(__dirname, 'public/photo'); // Fixed to 'public/photo'
 if (!fs.existsSync(photoDir)) {
     fs.mkdirSync(photoDir, { recursive: true });
 }
