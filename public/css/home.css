@@ -1,7 +1,66 @@
-/* General Styling */
+@font-face {
+    font-family: 'DiwaniLetterRegular';
+    src: url('/fonts/Diwani-Letter-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DiwaniBentRegular';
+    src: url('/fonts/Diwani-Bent-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FarsiSimpleBoldRegular';
+    src: url('/fonts/Farsi-Simple-Bold-Regular') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Amiri-Italic';
+    src: url('/fonts/Amiri-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CairoPlay-Regular';
+    src: url('/fonts/CairoPlay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lateef-Regular';
+    src: url('/fonts/Lateef-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Mada-Regular';
+    src: url('/fonts/Mada-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ScheherazadeNew-Regular';
+    src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Tajawal-Regular';
+    src: url('/fonts/Tajawal-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+  --user-font: 'DiwaniLetterRegular';
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    font-family: var(--user-font), sans-serif;
+    background: url('../background/landscape1.jpg') no-repeat center center fixed;
+    background-size: cover;
     text-align: center;
     color: #333;
     margin: 0;
@@ -13,28 +72,40 @@ body {
     height: 100vh;
 }
 
-/* Centered Content */
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
+/* Portrait orientation override */
+@media (orientation: portrait) {
+    body {
+        background: url('../background/portrait1.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
 }
 
-/* Button Styling */
+/* Add this new container class for positioning */
+.button-wrapper {
+    position: absolute;
+    bottom: 136px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+/* Updated .btn for larger size */
 .btn {
-    padding: 15px 30px;
-    font-size: 18px;
-    border: none;
-    background: #007bff;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 20px;;
+    width: 500px;
+    background: #4caf5038;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background: #0056b3;
+    background: #76e07b;
+}
+
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

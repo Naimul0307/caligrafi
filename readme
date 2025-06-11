@@ -1,0 +1,30 @@
+npm install pdfkit
+Download SumatraPDF (if not yet):
+From https://www.sumatrapdfreader.org/download-free-pdf-viewer
+Use the portable version for easy bundling.
+
+Place it somewhere in your project, e.g.:
+
+bash
+Copy
+Edit
+caligrafi/tools/SumatraPDF/SumatraPDF.exe
+Update your main.js code to use the correct path:
+Replace this line:
+
+js
+Copy
+Edit
+const sumatraPath = '"C:\\Path\\To\\SumatraPDF\\SumatraPDF.exe"';
+With:
+
+js
+Copy
+Edit
+const sumatraPath = `"${path.join(__dirname, 'tools', 'SumatraPDF', 'SumatraPDF.exe')}"`;
+This will resolve to something like:
+
+swift
+Copy
+Edit
+"C:\Users\LENOVO\Desktop\caligrafi\tools\SumatraPDF\SumatraPDF.exe"

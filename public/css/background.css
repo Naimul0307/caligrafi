@@ -1,56 +1,121 @@
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
-    text-align: center;
-    color: #333;
+@font-face {
+    font-family: 'DiwaniLetterRegular';
+    src: url('/fonts/Diwani-Letter-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DiwaniBentRegular';
+    src: url('/fonts/Diwani-Bent-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FarsiSimpleBoldRegular';
+    src: url('/fonts/Farsi-Simple-Bold-Regular') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Amiri-Italic';
+    src: url('/fonts/Amiri-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CairoPlay-Regular';
+    src: url('/fonts/CairoPlay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lateef-Regular';
+    src: url('/fonts/Lateef-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Mada-Regular';
+    src: url('/fonts/Mada-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ScheherazadeNew-Regular';
+    src: url('/fonts/ScheherazadeNew-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Tajawal-Regular';
+    src: url('/fonts/Tajawal-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --user-font: 'DiwaniLetterRegular';
+}
+
+html, body {
+    height: 100vh;
     margin: 0;
     padding: 0;
+    overflow: hidden; /* Prevent page scroll */
+}
+
+body {
+    font-family: var(--user-font), sans-serif;
+    background: url('../background/landscape2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+    color: #333;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+}
+
+/* Portrait override */
+@media (orientation: portrait) {
+    body {
+        background: url('../background/portrait2.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
 }
 
 .container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 1000px;
     width: 100%;
-}
-
-h1 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-p {
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 20px;
+    max-width: 1000px;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 200px;
 }
 
 #image-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    margin-top: 20px;
+    max-height: 100%;
+    overflow: auto;
 }
 
 .image-option {
-    width: 350px;
+    width: 300px;
     height: 200px;
+    object-fit: cover;
     margin: 10px;
     cursor: pointer;
     border: 3px solid transparent;
-    transition: border-color 0.3s ease;
-    object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
 }
 
 .image-option:hover {
@@ -64,19 +129,21 @@ p {
 }
 
 button {
-    background-color: #4CAF50;
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 24px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    background: #4caf5038;
     color: white;
-    padding: 15px 30px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
     transition: background-color 0.3s ease;
+    border: none;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #76e07b;
 }
 
 button:disabled {
